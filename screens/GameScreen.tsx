@@ -1,3 +1,5 @@
+import Card from "@/components/custom/Card";
+import InstructionText from "@/components/custom/InstructionText";
 import PrimaryButton from "@/components/custom/PrimaryButton";
 import Title from "@/components/custom/Title";
 import NumberContainer from "@/components/game/NumberContainer";
@@ -54,15 +56,15 @@ const GameScreen = ({ userNumber, gameOverHandler }: Props) => {
     <View style={styles.screen}>
       <Title>Opponent's Guess!</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
-      <View>
-        <Text>Higher or Lower?</Text>
+      <Card>
+        <InstructionText>Higher or Lower?</InstructionText>
         <PrimaryButton onPress={nextGuessHandler.bind(null, "greater")}>
           +
         </PrimaryButton>
         <PrimaryButton onPress={nextGuessHandler.bind(null, "lower")}>
           -
         </PrimaryButton>
-      </View>
+      </Card>
       {/* <View>Log Rounds!</View> */}
     </View>
   );

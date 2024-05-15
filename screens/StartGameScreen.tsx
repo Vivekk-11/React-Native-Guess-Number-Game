@@ -1,7 +1,10 @@
+import Card from "@/components/custom/Card";
+import InstructionText from "@/components/custom/InstructionText";
 import PrimaryButton from "@/components/custom/PrimaryButton";
+import Title from "@/components/custom/Title";
 import { Colors } from "@/constants/Colors";
 import React, { useState } from "react";
-import { Alert, StyleSheet, TextInput, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 
 interface Props {
   onPickNumber: (number: string) => void;
@@ -31,24 +34,28 @@ const StartGameScreen = ({ onPickNumber }: Props) => {
   };
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.numberInput}
-        maxLength={2}
-        keyboardType="number-pad"
-        autoCorrect={false}
-        autoCapitalize="none"
-        onChangeText={numberHandler}
-        value={enteredNumber}
-      />
-      <View style={styles.buttonsContainer}>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={resetHandler}>Reset</PrimaryButton>
+    <View style={styles.screen}>
+      <Title>Guess My Number</Title>
+      <Card>
+        <InstructionText>Enter a Number</InstructionText>
+        <TextInput
+          style={styles.numberInput}
+          maxLength={2}
+          keyboardType="number-pad"
+          autoCorrect={false}
+          autoCapitalize="none"
+          onChangeText={numberHandler}
+          value={enteredNumber}
+        />
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={resetHandler}>Reset</PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={confirmHandler}>Confirm</PrimaryButton>
+          </View>
         </View>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={confirmHandler}>Confirm</PrimaryButton>
-        </View>
-      </View>
+      </Card>
     </View>
   );
 };
@@ -56,20 +63,12 @@ const StartGameScreen = ({ onPickNumber }: Props) => {
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    backgroundColor: Colors.primary800,
-    padding: 16,
-    marginHorizontal: 24,
+  screen: {
+    flex: 1,
     marginTop: 100,
-    borderRadius: 8,
-    elevation: 10,
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    shadowOpacity: 0.25,
     alignItems: "center",
-    justifyContent: "center",
   },
+
   numberInput: {
     height: 50,
     width: 50,
