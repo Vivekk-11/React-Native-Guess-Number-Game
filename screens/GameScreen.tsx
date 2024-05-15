@@ -1,7 +1,8 @@
+import PrimaryButton from "@/components/custom/PrimaryButton";
 import Title from "@/components/custom/Title";
 import NumberContainer from "@/components/game/NumberContainer";
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 
 function generateRandomBetween(min: number, max: number, exclude: number) {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -10,9 +11,37 @@ function generateRandomBetween(min: number, max: number, exclude: number) {
   return rndNum;
 }
 
+let minBoundary = 1;
+let maxBoundary = 100;
+
 const GameScreen = ({ userNumber }: { userNumber: string }) => {
-  const initialGuess = generateRandomBetween(1, 100, parseInt(userNumber));
+  const initialGuess = generateRandomBetween(
+    minBoundary,
+    maxBoundary,
+    parseInt(userNumber)
+  );
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
+
+  const nextGuessHandler = (direction: "lower" | "greater") => {
+    if (
+      (direction === "lower" && currentGuess < parseInt(userNumber)) ||
+      (direction === "greater" && currentGuess > parseInt(userNumber))
+    ) {
+      Alert.alert("Don't lie!", "You know that this is wrong.", [
+        { text: "Sorry!", style: "cancel" },
+      ]);
+
+      return;
+    }
+    if (direction === "lower") maxBoundary = currentGuess;
+    else minBoundary = currentGuess - 1;
+    const newRandomNumber = generateRandomBetween(
+      minBoundary,
+      maxBoundary,
+      currentGuess
+    );
+    setCurrentGuess(newRandomNumber);
+  };
 
   return (
     <View style={styles.screen}>
@@ -20,7 +49,12 @@ const GameScreen = ({ userNumber }: { userNumber: string }) => {
       <NumberContainer>{currentGuess}</NumberContainer>
       <View>
         <Text>Higher or Lower?</Text>
-        {/* + - */}
+        <PrimaryButton onPress={nextGuessHandler.bind(null, "greater")}>
+          +
+        </PrimaryButton>
+        <PrimaryButton onPress={nextGuessHandler.bind(null, "lower")}>
+          -
+        </PrimaryButton>
       </View>
       {/* <View>Log Rounds!</View> */}
     </View>
