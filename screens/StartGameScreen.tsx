@@ -1,4 +1,5 @@
 import PrimaryButton from "@/components/custom/PrimaryButton";
+import { Colors } from "@/constants/Colors";
 import React, { useState } from "react";
 import { Alert, StyleSheet, TextInput, View } from "react-native";
 
@@ -56,7 +57,7 @@ export default StartGameScreen;
 
 const styles = StyleSheet.create({
   inputContainer: {
-    backgroundColor: "#3b021f",
+    backgroundColor: Colors.primary800,
     padding: 16,
     marginHorizontal: 24,
     marginTop: 100,
@@ -76,8 +77,8 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: "bold",
     borderBottomWidth: 2,
-    borderBottomColor: "#ddb52f",
-    color: "#ddb52f",
+    borderBottomColor: Colors.accent500,
+    color: Colors.accent500,
     marginVertical: 8,
   },
   buttonsContainer: {
