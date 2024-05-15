@@ -9,10 +9,10 @@ const Title = ({ children }: { children: React.ReactNode }) => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 24,
-    color: Colors.accent500,
+    color: "white",
     fontWeight: "bold",
     textAlign: "center",
-    borderColor: Colors.accent500,
+    borderColor: "white",
     borderWidth: 2,
     padding: 12,
   },
