@@ -13,6 +13,7 @@ const InstructionText = ({ children, style }: Props) => {
 
 const styles = StyleSheet.create({
   instructionText: {
+    fontFamily: "open-sans",
     fontSize: 24,
     color: Colors.accent500,
   },
