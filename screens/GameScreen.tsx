@@ -4,7 +4,7 @@ import PrimaryButton from "@/components/custom/PrimaryButton";
 import Title from "@/components/custom/Title";
 import NumberContainer from "@/components/game/NumberContainer";
 import React, { useEffect, useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 function generateRandomBetween(min: number, max: number, exclude: number) {
@@ -25,6 +25,7 @@ interface Props {
 const GameScreen = ({ userNumber, gameOverHandler }: Props) => {
   const initialGuess = generateRandomBetween(1, 100, parseInt(userNumber));
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const [guessRounds, setGuessRounds] = useState([initialGuess]);
 
   useEffect(() => {
     if (currentGuess === parseInt(userNumber)) {
@@ -56,6 +57,7 @@ const GameScreen = ({ userNumber, gameOverHandler }: Props) => {
       currentGuess
     );
     setCurrentGuess(newRandomNumber);
+    setGuessRounds((prev) => [newRandomNumber, ...prev]);
   };
 
   return (
@@ -79,7 +81,13 @@ const GameScreen = ({ userNumber, gameOverHandler }: Props) => {
           </View>
         </View>
       </Card>
-      {/* <View>Log Rounds!</View> */}
+      <View>
+        <FlatList
+          data={guessRounds}
+          renderItem={({ item }) => <Text>{item}</Text>}
+          keyExtractor={(item) => `${item}`}
+        />
+      </View>
     </View>
   );
 };
