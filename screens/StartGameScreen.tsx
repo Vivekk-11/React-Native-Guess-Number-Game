@@ -4,7 +4,14 @@ import PrimaryButton from "@/components/custom/PrimaryButton";
 import Title from "@/components/custom/Title";
 import { Colors } from "@/constants/Colors";
 import React, { useState } from "react";
-import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Alert,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  useWindowDimensions,
+} from "react-native";
 
 interface Props {
   onPickNumber: (number: string) => void;
@@ -12,6 +19,8 @@ interface Props {
 
 const StartGameScreen = ({ onPickNumber }: Props) => {
   const [enteredNumber, setEnteredNumber] = useState("");
+  const { height } = useWindowDimensions();
+  const marginTop = height < 380 ? 30 : 100;
 
   const numberHandler = (number: string) => {
     setEnteredNumber(number);
@@ -33,7 +42,7 @@ const StartGameScreen = ({ onPickNumber }: Props) => {
   };
 
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { marginTop }]}>
       <Title>Guess My Number</Title>
       <Card>
         <InstructionText>Enter a Number</InstructionText>
