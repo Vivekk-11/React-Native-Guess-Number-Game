@@ -27,10 +27,10 @@ const GameScreen = ({ userNumber, gameOverHandler }: Props) => {
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
 
   useEffect(() => {
-    if (initialGuess === parseInt(userNumber)) {
+    if (currentGuess === parseInt(userNumber)) {
       gameOverHandler();
     }
-  }, [initialGuess, userNumber, gameOverHandler]);
+  }, [currentGuess, userNumber, gameOverHandler]);
 
   const nextGuessHandler = (direction: "lower" | "greater") => {
     if (
