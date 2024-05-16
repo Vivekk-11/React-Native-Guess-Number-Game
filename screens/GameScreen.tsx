@@ -32,6 +32,11 @@ const GameScreen = ({ userNumber, gameOverHandler }: Props) => {
     }
   }, [currentGuess, userNumber, gameOverHandler]);
 
+  useEffect(() => {
+    minBoundary = 1;
+    maxBoundary = 100;
+  }, []);
+
   const nextGuessHandler = (direction: "lower" | "greater") => {
     if (
       (direction === "lower" && currentGuess < parseInt(userNumber)) ||

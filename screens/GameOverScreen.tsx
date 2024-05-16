@@ -4,7 +4,17 @@ import { Colors } from "@/constants/Colors";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
-const GameOverScreen = () => {
+interface Props {
+  roundsNumber: number;
+  userNumber: string;
+  onStartNewGame: () => void;
+}
+
+const GameOverScreen = ({
+  roundsNumber,
+  userNumber,
+  onStartNewGame,
+}: Props) => {
   return (
     <View style={styles.screen}>
       <Title>GAME OVER!</Title>
@@ -15,10 +25,11 @@ const GameOverScreen = () => {
         />
       </View>
       <Text style={styles.summaryText}>
-        Your Phone needed <Text style={styles.highlightText}>X</Text> rounds to
-        guess the number <Text style={styles.highlightText}>Y</Text>.
+        Your Phone needed{" "}
+        <Text style={styles.highlightText}>{roundsNumber}</Text> rounds to guess
+        the number <Text style={styles.highlightText}>{userNumber}</Text>.
       </Text>
-      <PrimaryButton onPress={() => {}}>Start New Game</PrimaryButton>
+      <PrimaryButton onPress={onStartNewGame}>Start New Game</PrimaryButton>
     </View>
   );
 };
