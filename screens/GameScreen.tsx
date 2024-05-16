@@ -6,6 +6,7 @@ import NumberContainer from "@/components/game/NumberContainer";
 import React, { useEffect, useState } from "react";
 import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import GuessLogItem from "@/components/game/GuessLogItem";
 
 function generateRandomBetween(min: number, max: number, exclude: number) {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -60,6 +61,8 @@ const GameScreen = ({ userNumber, gameOverHandler }: Props) => {
     setGuessRounds((prev) => [newRandomNumber, ...prev]);
   };
 
+  const guessRoundsList = guessRounds.length;
+
   return (
     <View style={styles.screen}>
       <Title>Opponent's Guess!</Title>
@@ -81,13 +84,14 @@ const GameScreen = ({ userNumber, gameOverHandler }: Props) => {
           </View>
         </View>
       </Card>
-      <View>
-        <FlatList
-          data={guessRounds}
-          renderItem={({ item }) => <Text>{item}</Text>}
-          keyExtractor={(item) => `${item}`}
-        />
-      </View>
+      <FlatList
+        data={guessRounds}
+        renderItem={({ item, index }) => (
+          <GuessLogItem guess={item} roundNumber={guessRoundsList - index} />
+        )}
+        keyExtractor={(item) => `${item}`}
+        alwaysBounceVertical={false}
+      />
     </View>
   );
 };
